@@ -6,6 +6,9 @@ set nocompatible
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
+"color schema (my favorite)
+colorscheme sand
+
 "allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
@@ -16,11 +19,6 @@ set showcmd     "show incomplete cmds down the bottom
 set showmode    "show current mode down the bottom
 
 set number      "show line numbers
-
-"display tabs and trailing spaces
-set list
-set listchars=tab:▷⋅,trail:⋅,nbsp:⋅
-
 
 set incsearch   "find the next match as we type the search
 set hlsearch    "hilight searches by default
@@ -39,7 +37,7 @@ endif
 "default indent settings
 set shiftwidth=4
 set softtabstop=4
-set expandtab
+set noexpandtab
 set autoindent
 
 "folding settings
