@@ -2,11 +2,12 @@
 "This must be first, because it changes other options as a side effect.
 set nocompatible
 
-"activate pathogen
+"activate pathogen, disabling plugins not currently in use
+let g:pathogen_disabled = ['endwise', 'nerdtree', 'perforce-4', 'rails', 'repeat', 'snipmate', 'syntastic', 'vim-ruby']
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
-"color schema (my favorite)
+"color scheme (my favorite)
 colorscheme sand
 
 "allow backspacing over everything in insert mode
@@ -35,8 +36,9 @@ if v:version >= 703
 endif
 
 "default indent settings
-set shiftwidth=4
-set softtabstop=4
+set tabstop=8
+set shiftwidth=8
+set softtabstop=8
 set noexpandtab
 set autoindent
 
@@ -63,23 +65,11 @@ filetype indent on
 "turn on syntax highlighting
 syntax on
 
-"some stuff to get the mouse going in term
-set mouse=a
-set ttymouse=xterm2
-
-"tell the term has 256 colors
-set t_Co=256
-
 "hide buffers when not displayed
 set hidden
 
 "statusline setup
 set statusline=%f       "tail of the filename
-
-"display a warning if fileformat isnt unix
-set statusline+=%#warningmsg#
-set statusline+=%{&ff!='unix'?'['.&ff.']':''}
-set statusline+=%*
 
 "display a warning if file encoding isnt utf-8
 set statusline+=%#warningmsg#
@@ -91,8 +81,6 @@ set statusline+=%y      "filetype
 set statusline+=%r      "read only flag
 set statusline+=%m      "modified flag
 
-set statusline+=%{fugitive#statusline()}
-
 "display a warning if &et is wrong, or we have mixed-indenting
 set statusline+=%#error#
 set statusline+=%{StatuslineTabWarning()}
@@ -103,7 +91,6 @@ set statusline+=%{StatuslineTrailingSpaceWarning()}
 set statusline+=%{StatuslineLongLineWarning()}
 
 set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 "display a warning if &paste is set
@@ -118,9 +105,6 @@ set statusline+=%l/%L   "cursor line/total lines
 set statusline+=\ %P    "percent through file
 set laststatus=2
 
-"disable perforce plugin by default
-let g:loaded_perfoce=0
-
 "recalculate the trailing whitespace warning when idle, and after saving
 autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
 
@@ -129,16 +113,16 @@ autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
 function! StatuslineTrailingSpaceWarning()
     if !exists("b:statusline_trailing_space_warning")
 
-        if !&modifiable
-            let b:statusline_trailing_space_warning = ''
-            return b:statusline_trailing_space_warning
-        endif
+	if !&modifiable
+	    let b:statusline_trailing_space_warning = ''
+	    return b:statusline_trailing_space_warning
+	endif
 
-        if search('\s\+$', 'nw') != 0
-            let b:statusline_trailing_space_warning = '[\s]'
-        else
-            let b:statusline_trailing_space_warning = ''
-        endif
+	if search('\s\+$', 'nw') != 0
+	    let b:statusline_trailing_space_warning = '[\s]'
+	else
+	    let b:statusline_trailing_space_warning = ''
+	endif
     endif
     return b:statusline_trailing_space_warning
 endfunction
@@ -148,9 +132,9 @@ endfunction
 function! StatuslineCurrentHighlight()
     let name = synIDattr(synID(line('.'),col('.'),1),'name')
     if name == ''
-        return ''
+	return ''
     else
-        return '[' . name . ']'
+	return '[' . name . ']'
     endif
 endfunction
 
@@ -162,22 +146,22 @@ autocmd cursorhold,bufwritepost * unlet! b:statusline_tab_warning
 "return an empty string if everything is fine
 function! StatuslineTabWarning()
     if !exists("b:statusline_tab_warning")
-        let b:statusline_tab_warning = ''
+	let b:statusline_tab_warning = ''
 
-        if !&modifiable
-            return b:statusline_tab_warning
-        endif
+	if !&modifiable
+	    return b:statusline_tab_warning
+	endif
 
-        let tabs = search('^\t', 'nw') != 0
+	let tabs = search('^\t', 'nw') != 0
 
-        "find spaces that arent used as alignment in the first indent column
-        let spaces = search('^ \{' . &ts . ',}[^\t]', 'nw') != 0
+	"find spaces that arent used as alignment in the first indent column
+	let spaces = search('^ \{' . &ts . ',}[^\t]', 'nw') != 0
 
-        if tabs && spaces
-            let b:statusline_tab_warning =  '[mixed-indenting]'
-        elseif (spaces && !&et) || (tabs && &et)
-            let b:statusline_tab_warning = '[&et]'
-        endif
+	if tabs && spaces
+	    let b:statusline_tab_warning =  '[mixed-indenting]'
+	elseif (spaces && !&et) || (tabs && &et)
+	    let b:statusline_tab_warning = '[&et]'
+	endif
     endif
     return b:statusline_tab_warning
 endfunction
@@ -195,21 +179,21 @@ autocmd cursorhold,bufwritepost * unlet! b:statusline_long_line_warning
 function! StatuslineLongLineWarning()
     if !exists("b:statusline_long_line_warning")
 
-        if !&modifiable
-            let b:statusline_long_line_warning = ''
-            return b:statusline_long_line_warning
-        endif
+	if !&modifiable
+	    let b:statusline_long_line_warning = ''
+	    return b:statusline_long_line_warning
+	endif
 
-        let long_line_lens = s:LongLines()
+	let long_line_lens = s:LongLines()
 
-        if len(long_line_lens) > 0
-            let b:statusline_long_line_warning = "[" .
-                        \ '#' . len(long_line_lens) . "," .
-                        \ 'm' . s:Median(long_line_lens) . "," .
-                        \ '$' . max(long_line_lens) . "]"
-        else
-            let b:statusline_long_line_warning = ""
-        endif
+	if len(long_line_lens) > 0
+	    let b:statusline_long_line_warning = "[" .
+			\ '#' . len(long_line_lens) . "," .
+			\ 'm' . s:Median(long_line_lens) . "," .
+			\ '$' . max(long_line_lens) . "]"
+	else
+	    let b:statusline_long_line_warning = ""
+	endif
     endif
     return b:statusline_long_line_warning
 endfunction
@@ -223,11 +207,11 @@ function! s:LongLines()
 
     let i = 1
     while i <= line("$")
-        let len = strlen(substitute(getline(i), '\t', spaces, 'g'))
-        if len > threshold
-            call add(long_line_lens, len)
-        endif
-        let i += 1
+	let len = strlen(substitute(getline(i), '\t', spaces, 'g'))
+	if len > threshold
+	    call add(long_line_lens, len)
+	endif
+	let i += 1
     endwhile
 
     return long_line_lens
@@ -239,40 +223,16 @@ function! s:Median(nums)
     let l = len(nums)
 
     if l % 2 == 1
-        let i = (l-1) / 2
-        return nums[i]
+	let i = (l-1) / 2
+	return nums[i]
     else
-        return (nums[l/2] + nums[(l/2)-1]) / 2
+	return (nums[l/2] + nums[(l/2)-1]) / 2
     endif
 endfunction
 
 "syntastic settings
 let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=2
-
-"snipmate settings
-let g:snips_author = "Martin Grenfell"
-
-"taglist settings
-let Tlist_Compact_Format = 1
-let Tlist_Enable_Fold_Column = 0
-let Tlist_Exit_OnlyWindow = 0
-let Tlist_WinWidth = 35
-let tlist_php_settings = 'php;c:class;f:Functions'
-let Tlist_Use_Right_Window=1
-let Tlist_GainFocus_On_ToggleOpen = 1
-let Tlist_Display_Tag_Scope = 1
-let Tlist_Process_File_Always = 1
-let Tlist_Show_One_File = 1
-
-"nerdtree settings
-let g:NERDTreeMouseMode = 2
-let g:NERDTreeWinSize = 40
-
-"explorer mappings
-nnoremap <f1> :BufExplorer<cr>
-nnoremap <f2> :NERDTreeToggle<cr>
-nnoremap <f3> :TlistToggle<cr>
 
 "source project specific config files
 runtime! projects/**/*.vim
@@ -281,16 +241,6 @@ runtime! projects/**/*.vim
 if !has("gui")
     let g:CSApprox_loaded = 1
 endif
-
-"make <c-l> clear the highlight as well as redraw
-nnoremap <C-L> :nohls<CR><C-L>
-inoremap <C-L> <C-O>:nohls<CR>
-
-"map Q to something useful
-noremap Q gq
-
-"make Y consistent with C and D
-nnoremap Y y$
 
 "visual search mappings
 function! s:VSetSearch()
@@ -302,30 +252,17 @@ endfunction
 vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR>
 vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
 
-
 "jump to last cursor position when opening a file
 "dont do it when writing a commit log entry
 autocmd BufReadPost * call SetCursorPosition()
 function! SetCursorPosition()
     if &filetype !~ 'svn\|commit\c'
-        if line("'\"") > 0 && line("'\"") <= line("$")
-            exe "normal! g`\""
-            normal! zz
-        endif
+	if line("'\"") > 0 && line("'\"") <= line("$")
+	    exe "normal! g`\""
+	    normal! zz
+	endif
     end
 endfunction
 
 "spell check when writing commit logs
 autocmd filetype svn,*commit* setlocal spell
-
-"http://vimcasts.org/episodes/fugitive-vim-browsing-the-git-object-database/
-"hacks from above (the url, not jesus) to delete fugitive buffers when we
-"leave them - otherwise the buffer list gets poluted
-"
-"add a mapping on .. to view parent tree
-autocmd BufReadPost fugitive://* set bufhidden=delete
-autocmd BufReadPost fugitive://*
-  \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
-  \   nnoremap <buffer> .. :edit %:h<CR> |
-  \ endif
-
