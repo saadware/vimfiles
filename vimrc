@@ -3,7 +3,7 @@
 set nocompatible
 
 "activate pathogen, disabling plugins not currently in use
-let g:pathogen_disabled = ['endwise', 'nerdtree', 'perforce-4', 'rails', 'repeat', 'snipmate', 'syntastic', 'vim-ruby']
+let g:pathogen_disabled = ['endwise', 'gundo', 'nerdtree', 'perforce-4', 'rails', 'repeat', 'snipmate', 'syntastic', 'vim-ruby']
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
