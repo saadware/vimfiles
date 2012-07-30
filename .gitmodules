@@ -82,6 +82,6 @@
 [submodule "SQLUtilities"]
 	path = bundle/SQLUtilities
 	url = git://github.com/vim-scripts/SQLUtilities.git
-[submodule ".\\bundle\\vim-ps1"]
-	path = .\\bundle\\vim-ps1
+[submodule "bundle/vim-ps1"]
+	path = bundle/vim-ps1
 	url = git://github.com/PProvost/vim-ps1.git
