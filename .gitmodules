@@ -73,9 +73,6 @@
 [submodule "bundle/unimpaired"]
 	path = bundle/unimpaired
 	url = https://github.com/tpope/vim-unimpaired.git
-[submodule "SQLUtilities"]
-	path = bundle/SQLUtilities
-	url = git://github.com/vim-scripts/SQLUtilities.git
 [submodule "bundle/vim-ps1"]
 	path = bundle/vim-ps1
 	url = git://github.com/PProvost/vim-ps1.git
