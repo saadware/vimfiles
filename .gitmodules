@@ -96,11 +96,11 @@
 	ignore = untracked
 [submodule "bundle/vim-ps1"]
 	path = bundle/vim-ps1
-	url = git://github.com/PProvost/vim-ps1.git
+	url = https://github.com/PProvost/vim-ps1.git
 	ignore = untracked
 [submodule "bundle/vim-markdown"]
 	path = bundle/vim-markdown
-	url = git://github.com/tpope/vim-markdown.git
+	url = https://github.com/tpope/vim-markdown.git 
 	ignore = untracked
 [submodule "bundle/ultisnips"]
 	path = bundle/ultisnips
@@ -108,7 +108,7 @@
 	ignore = untracked
 [submodule "bundle/tagbar"]
 	path = bundle/tagbar
-	url = git://github.com/majutsushi/tagbar
+	url = https://github.com/majutsushi/tagbar.git 
 	ignore = untracked
 [submodule "bundle/MatchTag"]
 	path = bundle/MatchTag
