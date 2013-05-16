@@ -8,8 +8,9 @@ call pathogen#infect()
 "allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
-"color scheme (my favorite)
-colorscheme sand
+"color scheme 
+set background=light
+colorscheme solarized
 
 "store lots of :cmdline history
 set history=1000
