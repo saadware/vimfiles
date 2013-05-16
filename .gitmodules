@@ -102,10 +102,6 @@
 	path = bundle/vim-markdown
 	url = https://github.com/tpope/vim-markdown.git 
 	ignore = untracked
-[submodule "bundle/ultisnips"]
-	path = bundle/ultisnips
-	url = https://github.com/SirVer/ultisnips.git
-	ignore = untracked
 [submodule "bundle/tagbar"]
 	path = bundle/tagbar
 	url = https://github.com/majutsushi/tagbar.git 
