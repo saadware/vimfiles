@@ -23,10 +23,12 @@ Clone the repo:
 `git clone https://github.com/saadware/vimfiles.git`
 
 Grab the plugin submodules:
-`cd ~/vimfiles && git submodule init && git submodule update`
+`cd vimfiles && git submodule init && git submodule update`
 
 Make sure vim finds the vimrc file creating link from within your home directory.
 `mklink /h _vimrc c:\users\me\vimfiles\vimrc`
+
+NOTE: View more info on Windows vimrc linking [here](http://saadware.com/windows-vimrc-link/).
 
 
 Installation on *unix like environment
@@ -40,3 +42,4 @@ Grab the plugin submodules:
 
 Make sure vim finds the vimrc file by symlinking it:
 `ln -s ~/.vim/vimrc ~/.vimrc`
+
