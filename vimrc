@@ -10,7 +10,11 @@ set backspace=indent,eol,start
 
 "color scheme 
 set background=light
-colorscheme solarized
+if has("gui")
+    colorscheme solarized
+else
+    colorscheme default
+endif
 
 "store lots of :cmdline history
 set history=1000
@@ -243,6 +247,11 @@ runtime! projects/**/*.vim
 "dont load csapprox if we no gui support - silences an annoying warning
 if !has("gui")
     let g:CSApprox_loaded = 1
+endif
+
+"if we have gui support, hit up the consolas font
+if has("gui")
+    set guifont=consolas
 endif
 
 "visual search mappings
