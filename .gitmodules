@@ -119,4 +119,4 @@
 	url = git://github.com/kongo2002/fsharp-vim.git
 [submodule "bundle/vim-node"]
 	path = bundle/vim-node
-	url = git@github.com:moll/vim-node.git
+    url = https://github.com/moll/vim-node.git
