@@ -114,3 +114,9 @@
 	path = bundle/yankring
 	url = https://github.com/vim-scripts/YankRing.vim.git
 	ignore = untracked
+[submodule "bundle/fsharp"]
+	path = bundle/fsharp
+	url = git://github.com/kongo2002/fsharp-vim.git
+[submodule "bundle/vim-node"]
+	path = bundle/vim-node
+    url = https://github.com/moll/vim-node.git
