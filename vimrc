@@ -277,3 +277,36 @@ endfunction
 
 "spell check when writing commit logs
 autocmd filetype svn,*commit* setlocal spell
+
+"cscope it yo
+if has("cscope")
+    set csprg=cscope
+    set csto=0
+    set cst
+    set nocsverb
+    " add any database in current directory
+    if filereadable("cscope.out")
+        cs add cscope.out
+        " else add database pointed to by environment
+    elseif $CSCOPE_DB != ""
+        cs add $CSCOPE_DB
+    endif
+    set csverb
+endif
+
+nmap <C-Space>s :scs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <C-Space>g :scs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <C-Space>c :scs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <C-Space>t :scs find t <C-R>=expand("<cword>")<CR><CR>
+nmap <C-Space>e :scs find e <C-R>=expand("<cword>")<CR><CR>
+nmap <C-Space>f :scs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap <C-Space>i :scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nmap <C-Space>d :scs find d <C-R>=expand("<cword>")<CR><CR>
+
+" tab navigation like firefox
+nnoremap <C-S-tab> :tabprevious<CR>
+nnoremap <C-tab>   :tabnext<CR>
+nnoremap <C-t>     :tabnew<CR>
+inoremap <C-S-tab> <Esc>:tabprevious<CR>i
+inoremap <C-tab>   <Esc>:tabnext<CR>i
+inoremap <C-t>     <Esc>:tabnew<CR>
