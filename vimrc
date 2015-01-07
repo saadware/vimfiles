@@ -2,6 +2,10 @@
 "This must be first, because it changes other options as a side effect.
 set nocompatible
 
+"disable plugins
+let g:pathogen_disabled = []
+call add(g:pathogen_disabled, 'syntastic')
+
 "activate pathogen
 call pathogen#infect()
 
@@ -231,14 +235,9 @@ function! s:Median(nums)
     endif
 endfunction
 
-"nerdtree settings
-let g:NERDTreeMouseMode = 2
-let g:NERDTreeWinSize = 40
-
 "explorer mappings
 nnoremap <f1> :BufExplorer<cr>
-nnoremap <f2> :NERDTreeToggle<cr>
-nnoremap <f3> :TagbarToggle<cr>
+nnoremap <f2> :TagbarToggle<cr>
 
 "source project specific config files
 runtime! projects/**/*.vim
@@ -275,8 +274,11 @@ function! SetCursorPosition()
     end
 endfunction
 
-"spell check when writing commit logs
-autocmd filetype svn,*commit* setlocal spell
+"spell check and tw when writing hg commit logs
+autocmd BufNewFile,BufRead hg-editor-*.txt setlocal spell tw=72
+
+"Command-T options
+let g:CommandTTraverseSCM="pwd"
 
 "cscope it yo
 if has("cscope")
