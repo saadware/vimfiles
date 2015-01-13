@@ -57,3 +57,6 @@
 [submodule "bundle/vim-node"]
     path = bundle/vim-node
     url = https://github.com/moll/vim-node.git
+[submodule "bundle/LargeFile"]
+	path = bundle/LargeFile
+	url = https://github.com/vim-scripts/LargeFile.git
