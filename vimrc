@@ -2,6 +2,8 @@
 "This must be first, because it changes other options as a side effect.
 set nocompatible
 
+set nocp
+
 "activate pathogen
 call pathogen#infect()
 
@@ -43,6 +45,14 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 set smartindent
+
+"tab navigation (like firefox)
+nnoremap <C-S-tab>  :tabprevious<CR>
+nnoremap <C-tab>    :tabnext<CR>
+nnoremap <C-t>      :tabnew<CR>
+inoremap <C-S-tab>  <Esc>:tabprevious<CR>i
+inoremap <C-tab>    <Esc>:tabnext<CR>i
+inoremap <C-t>      <Esc>:tabnew<CR>
 
 "folding settings
 set foldmethod=indent   "fold based on indent
@@ -250,7 +260,7 @@ endif
 
 "if we have gui support, hit up the consolas font
 if has("gui")
-    set guifont=consolas
+    set guifont=Consolas:h10:cANSI
 endif
 
 "visual search mappings
