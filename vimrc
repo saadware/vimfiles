@@ -128,7 +128,7 @@ endif
 
 "if we have gui support, hit up the consolas font
 if has("gui")
-    set guifont=Consolas:h10:cANSI
+    set guifont=Monospace\ 8
 endif
 
 "visual search mappings
@@ -155,9 +155,6 @@ endfunction
 
 "spell check and tw when writing hg commit logs
 autocmd BufNewFile,BufRead hg-editor-*.txt setlocal spell tw=72
-
-"Command-T options
-let g:CommandTTraverseSCM="pwd"
 
 "cscope it yo
 if has("cscope")
@@ -191,3 +188,6 @@ nnoremap <C-t>     :tabnew<CR>
 inoremap <C-S-tab> <Esc>:tabprevious<CR>i
 inoremap <C-tab>   <Esc>:tabnext<CR>i
 inoremap <C-t>     <Esc>:tabnew<CR>
+
+" ctrlp
+let g:ctrlp_map = '<leader>t'
